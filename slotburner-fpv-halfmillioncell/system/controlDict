@@ -1,0 +1,105 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+    class           dictionary;
+    object          controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     ffpvFoam;
+
+startFrom       latestTime;
+
+startTime       latestTime;
+
+stopAt          endTime;
+
+endTime         100; //3.0 for test
+
+deltaT          0.0005;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.1;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+graphFormat     raw;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxCo           0.6;
+
+maxDeltaT       0.005;
+
+functions
+{
+    fieldAverage1
+    {
+	type 		fieldAverage;
+	functionObjectLibs  ( "libfieldFunctionObjects.so" );
+	enabled		true;
+	outputControl	outputTime;
+	resetOnRestart	true;
+	
+	fields
+	(
+	     U
+	     {
+		mean		on;
+		prime2Mean	on;
+		base		time;
+	     }
+	
+    	     PV
+	     {
+		mean		on;
+		prime2Mean	on;
+		base		time;
+	     }
+	
+     	     T
+	     {
+		mean		on;
+		prime2Mean	on;
+		base		time;
+	     }
+	
+     	     f
+	     {
+		mean		on;
+		prime2Mean	on;
+		base		time;
+	     }
+       );
+    }
+}	
+
+
+
+
+
+
+
+
+// ************************************************************************* //
